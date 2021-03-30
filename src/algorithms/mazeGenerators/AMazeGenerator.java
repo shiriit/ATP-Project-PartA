@@ -28,7 +28,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         Position start = GenerateRandomPositions(rows, columns);
         Position goal = GenerateRandomPositions(rows, columns);
 
-        while (start.getNeighbors(rows, columns).contains(goal) | (goal.getRowIndex()==start.getRowIndex())&(goal.getColumnIndex()==start.getColumnIndex()))
+        while (start.getMoreNeighbors(rows, columns).contains(goal) | (goal.getRowIndex()==start.getRowIndex())&(goal.getColumnIndex()==start.getColumnIndex()))
             goal = GenerateRandomPositions(rows, columns);
         Position[] answer = {start, goal};
         return answer;
