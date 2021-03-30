@@ -2,15 +2,14 @@ package algorithms.mazeGenerators;
 import java.util.ArrayList;
 
 public class Position {
+
+    int row;
+    int column;
     public Position(int row, int column) {
         this.row = row;
         this.column = column;
     }
-    int row;
-    int column;
-    public int getRowIndex(){
-        return row;
-    }
+    public int getRowIndex() { return row; }
     public int getColumnIndex(){
         return column;
     }

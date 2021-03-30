@@ -8,7 +8,7 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         int[][] m_map = new int[rows][columns];
         Position[] positions = CheckPositions(rows,columns);
         Position start = positions[0];
-        Position goal =  positions[1];
+        //Position goal =  positions[1];
         Random rand = new Random();
         int num_of_walls = (rows*columns)/2;
         for (int i=0; i<num_of_walls; i++)
@@ -18,19 +18,19 @@ public class SimpleMazeGenerator extends AMazeGenerator{
             m_map[rows_random][cols_random]=1;
         }
         Position current = start;
-        Position last = start;
+        current.setVisited();
 
-/*        Maze my_maze = new Maze(m_map,start,goal);
-        my_maze.print();*/
+        Maze my_maze = new Maze(m_map,start,goal);
+        my_maze.print();
 
         while ((!current.equals(goal))&(!current.getNeighbors(rows, columns).contains(goal)))
         {
             ArrayList<Position> neighbors = current.getNeighbors(rows,columns);
             boolean found_neighbor = false;
             for (Position p: neighbors) {
-                if ((m_map[p.getRowIndex()][p.getColumnIndex()] == 0) & (!p.equals(last))) {
+                if ((m_map[p.getRowIndex()][p.getColumnIndex()] == 0) & (!p.getVisited())) {
                     found_neighbor = true;
-                    last = current;
+                    p.setVisited();
                     current = p;
                     break;
                 }
@@ -38,14 +38,15 @@ public class SimpleMazeGenerator extends AMazeGenerator{
             if (!found_neighbor){
                 Position randomPos;
                 do {randomPos = neighbors.get(rand.nextInt(neighbors.size()));}
-                while (randomPos.equals(last));
-                last=current;
+                while (randomPos.getVisited());
+                current.setVisited();
                 current=randomPos;
                 m_map[current.getRowIndex()][current.getColumnIndex()]=0;
             }
-
+            my_maze = new Maze(m_map,start,goal);
+            my_maze.print();
         }
-        Maze my_maze = new Maze(m_map,start,goal);
+        my_maze = new Maze(m_map,start,goal);
         return my_maze;
     }
 }
