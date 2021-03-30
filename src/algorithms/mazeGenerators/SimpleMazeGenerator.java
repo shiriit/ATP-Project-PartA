@@ -8,9 +8,9 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         int[][] m_map = new int[rows][columns];
         Position[] positions = CheckPositions(rows,columns);
         Position start = positions[0];
-        //Position goal =  positions[1];
+        Position goal =  positions[1];
         Random rand = new Random();
-        int num_of_walls = (rows*columns)/2;
+        int num_of_walls = (rows*columns);
         for (int i=0; i<num_of_walls; i++)
         {
             int rows_random = rand.nextInt(rows);
@@ -18,14 +18,37 @@ public class SimpleMazeGenerator extends AMazeGenerator{
             m_map[rows_random][cols_random]=1;
         }
         Position current = start;
-        current.setVisited();
 
-        Maze my_maze = new Maze(m_map,start,goal);
-        my_maze.print();
 
-        while ((!current.equals(goal))&(!current.getNeighbors(rows, columns).contains(goal)))
+        while (!current.equals(goal))
         {
-            ArrayList<Position> neighbors = current.getNeighbors(rows,columns);
+            if (current.getRowIndex()>goal.getRowIndex())
+            {
+                m_map[current.getRowIndex()-1][current.getColumnIndex()]=0;
+                current=new Position(current.getRowIndex()-1,current.getColumnIndex() );
+            }
+            if (current.getRowIndex()<goal.getRowIndex())
+            {
+                m_map[current.getRowIndex()+1][current.getColumnIndex()]=0;
+                current=new Position(current.getRowIndex()+1,current.getColumnIndex() );
+            }
+            if (current.getColumnIndex()>goal.getColumnIndex())
+            {
+                m_map[current.getRowIndex()][current.getColumnIndex()-1]=0;
+                current=new Position(current.getRowIndex(),current.getColumnIndex()-1 );
+            }
+            if (current.getColumnIndex()<goal.getColumnIndex())
+            {
+                m_map[current.getRowIndex()][current.getColumnIndex()+1]=0;
+                current=new Position(current.getRowIndex(),current.getColumnIndex()+1 );
+            }
+        }
+        Maze my_maze = new Maze(m_map,start,goal);
+        return my_maze;
+    }
+}
+/*
+ ArrayList<Position> neighbors = current.getNeighbors(rows,columns);
             boolean found_neighbor = false;
             for (Position p: neighbors) {
                 if ((m_map[p.getRowIndex()][p.getColumnIndex()] == 0) & (!p.getVisited())) {
@@ -45,8 +68,4 @@ public class SimpleMazeGenerator extends AMazeGenerator{
             }
             my_maze = new Maze(m_map,start,goal);
             my_maze.print();
-        }
-        my_maze = new Maze(m_map,start,goal);
-        return my_maze;
-    }
-}
+ */

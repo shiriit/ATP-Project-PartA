@@ -41,4 +41,37 @@ public class Maze {
         }
         System.out.print("}\n");
     }
+    public void testPrint(){
+        int[][] temp = map  ;
+        temp[start.getRowIndex()][start.getColumnIndex()] = 2;
+        temp[goal.getRowIndex()][goal.getColumnIndex()] = 3;
+        String body = "";
+        for (int[] r : map  )
+            body += "█ ";
+        body += "█ ";
+        body += "█ ";
+        body+="\n";
+        for (int[] r : map  ){
+            body += "█";
+            for (int i : r){
+                body += " ";
+                if (i != 2 && i != 3 && i == 1)
+                    body += "█";
+                else if (i != 2 && i != 3 && i == 0)
+                    body += " ";
+                else if (i == 2)
+                    body += "S";
+                else
+                    body += "E";
+            }
+            body += " ";
+            body += "█";
+            body+="\n";
+        }
+        for (int[] r : map  )
+            body += "█ ";
+        body += "█ ";
+        body += "█ ";
+        System.out.println(body);
+    }
 }
