@@ -41,8 +41,8 @@ public class Position {
         }
         return posarray;
     }
-    protected boolean compareTo (Position p){
-        if ((this.getRowIndex()==p.getRowIndex())&&(this.getColumnIndex()==p.getColumnIndex()))
+    public boolean equals(Object p){
+        if ((this.getRowIndex()==((Position)p).getRowIndex())&&(this.getColumnIndex()==((Position)p).getColumnIndex()))
             return true;
         return false;
     }
