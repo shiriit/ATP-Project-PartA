@@ -1,38 +1,42 @@
 package algorithms.mazeGenerators;
 
 public class Maze {
-    int[][] maze;
-    int rows;
-    int columns;
+    int[][] map;
     Position start;
     Position goal;
 
-    public Maze(int rows, int columns, int rstart,int cstart, int rgoal,int cgoal) {
-        this.rows = rows;
-        this.columns = columns;
-        this.start = new Position(rstart,cstart);
-        this.goal = new Position(rgoal,cgoal);
-        maze = new int[rows][columns];
+
+    public Maze(int[][] map, Position start, Position goal) {
+        this.map = map;
+        this.start = start;
+        this.goal = goal;
     }
 
-    public Position getStartPosition(){
+    public Position getStartPosition() {
         return start;
     }
-    public Position getGoalPosition(){
+
+    public Position getGoalPosition() {
         return goal;
     }
-    public void print(){
+
+    public void print() {
         System.out.print("{\n");
-        for (int i = 0; i < rows; i++) {
-            System.out.print("{");
-            for (int j = 0; j < columns; j++) {
-                System.out.print(maze[i][j]);
-                if (j!=columns-1)
-                    System.out.print(", ");
-             }
-            System.out.print("}");
-            if (i!=rows-1)
-                System.out.print(", ");
+        for (int i = 0; i < map.length; i++) {
+            System.out.print("{ ");
+            for (int j = 0; j < map[i].length; j++) {
+                if ((i==start.getRowIndex())&(j==start.getColumnIndex()))
+                    System.out.print("S");
+                else if ((i==goal.getRowIndex())&(j==goal.getColumnIndex()))
+                    System.out.print("E");
+                else
+                    System.out.print(map[i][j]);
+                if (j != map[i].length - 1)
+                    System.out.print(" ");
+            }
+            System.out.print(" }");
+            if (i!=map.length-1)
+                System.out.print(" ");
             System.out.print("\n");
         }
         System.out.print("}\n");

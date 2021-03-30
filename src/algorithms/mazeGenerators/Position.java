@@ -8,10 +8,10 @@ public class Position {
 
     int rows;
     int columns;
-    int getRowIndex(){
+    public int getRowIndex(){
         return rows;
     }
-    int getColumnIndex(){
+    public int getColumnIndex(){
         return columns;
     }
     public String toString(){ // ????
